@@ -46,10 +46,11 @@ void HuffmanTree(int n, bnode node[],int w[])
 	}
 }
 
-void printHuffmanTree(int i, bnode node[])
+long printHuffmanTree(int i, bnode node[], int weight)
 {
 	int code[26];
 	int n = 0, j = 0;
+	long wpl = 0;
 	do
 	{
 		if(node[node[i].parent].lchild == i){
@@ -63,6 +64,8 @@ void printHuffmanTree(int i, bnode node[])
 	for(int j = n-1;j>=0;j--){
 		printf("%d",code[j]);
 	}
+	wpl = n*weight;
+	return wpl;
 }
 
 void main()
@@ -120,12 +123,14 @@ void main()
 	HuffmanTree(26, node, weight);
 
 	//¹ş·òÂü±àÂë
+	long WPL = 0;
 	for (i=0; i<26; i++)
 	{
 		printf("Now processing %c -----", i+65);
-		printHuffmanTree(i, node);
+		WPL += printHuffmanTree(i, node, weight[i]);
 		printf("\n");
 	}
+	printf("WPL: %ld\n",WPL);
 
 	free(node);
 	fclose(fp);
